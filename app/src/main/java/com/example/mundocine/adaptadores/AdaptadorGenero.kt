@@ -9,17 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mundocine.R
 import com.example.mundocine.database.GeneroDAO
 
-class AdaptadorGenero(): RecyclerView.Adapter<AdaptadorGenero.ViewHolder>() {
+class AdaptadorGenero(private val onGeneroClick: (String) -> Unit): RecyclerView.Adapter<AdaptadorGenero.ViewHolder>() {
 
     inner class ViewHolder(vistaGenero: View) : RecyclerView.ViewHolder(vistaGenero){
-        var nombre : TextView
-        var portada : ImageView
+        var nombre : TextView = vistaGenero.findViewById(R.id.tvGenero)
+        var portada : ImageView = vistaGenero.findViewById(R.id.ivGenero)
 
         init {
-            nombre = vistaGenero.findViewById(R.id.tvGenero)
-            portada = vistaGenero.findViewById(R.id.ivGenero)
+            vistaGenero.setOnClickListener {
+                val posicion = adapterPosition
+                if (posicion != RecyclerView.NO_POSITION) {
+                    val generoSeleccionado = GeneroDAO.listaGeneros[posicion].nombre
+                    onGeneroClick(generoSeleccionado)
+                }
+            }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

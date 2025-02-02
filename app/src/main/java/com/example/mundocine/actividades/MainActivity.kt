@@ -1,5 +1,6 @@
 package com.example.mundocine.actividades
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -27,19 +28,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rv = findViewById(R.id.rvGeneros)
-        rv.adapter = AdaptadorGenero()
         rv.layoutManager = LinearLayoutManager(this)
         rv.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
-
-
+        rv.adapter = AdaptadorGenero {
+            generoSleccionado ->
+            val intent = Intent(this, MenuPelicula::class.java)
+            intent.putExtra("GENERO_SELECCIONADO", generoSleccionado)
+            startActivity(intent)
+        }
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             // Acción del icono de navegación
         }
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

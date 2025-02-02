@@ -8,8 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mundocine.R
+import com.example.mundocine.adaptadores.AdaptadorPelicula
 import com.example.mundocine.database.GeneroDAO
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -31,7 +33,14 @@ class MenuPelicula : AppCompatActivity() {
             // Acción del icono de navegación
         }
 
+        val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
 
+        //filtramos por genero
+        val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
+
+        rvPelicula = findViewById(R.id.rvPeliculas)
+        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas)
+        rvPelicula.layoutManager = LinearLayoutManager(this)
 
 
 
