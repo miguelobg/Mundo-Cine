@@ -1,4 +1,4 @@
-package com.example.mundocine
+package com.example.mundocine.actividades
 
 import android.os.Bundle
 import android.view.Menu
@@ -8,13 +8,29 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mundocine.R
+import com.example.mundocine.adaptadores.AdaptadorGenero
+import com.example.mundocine.database.GeneroDAO
 import com.google.android.material.appbar.MaterialToolbar
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var rv : RecyclerView
+    var dao = GeneroDAO()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        rv = findViewById(R.id.rvGeneros)
+        rv.adapter = AdaptadorGenero()
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
 
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
