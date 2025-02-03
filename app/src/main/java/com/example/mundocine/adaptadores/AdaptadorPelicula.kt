@@ -33,7 +33,20 @@ class AdaptadorPelicula(private val listaPeliculas: List<Pelicula>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val pelicula = listaPeliculas[position]
         holder.titulo.text = pelicula.titulo
-        holder.portada.setImageResource(pelicula.portada)
+        //holder.portada.setImageResource(pelicula.portada)
+
+        // Convertir el nombre de la imagen (ej. "pelicula_john_wick") en un ID de recurso drawable
+
+
+        val idImagen = holder.itemView.context.resources.getIdentifier(
+            pelicula.portada, "drawable", holder.itemView.context.packageName
+        )
+
+        if (idImagen != 0) { // Si encontró la imagen
+            holder.portada.setImageResource(idImagen)
+        } else { // Si no encontró la imagen, usar una imagen por defecto
+            holder.portada.setImageResource(R.drawable.pelicula_poster_por_defecto)
+        }
 
         holder.itemView.setOnClickListener {
             val fragment = DetallePeliculaFragment().apply {
@@ -42,8 +55,8 @@ class AdaptadorPelicula(private val listaPeliculas: List<Pelicula>,
                     putString("GENERO", pelicula.genero)
                     putString("SINOPSIS", pelicula.sinopsis)
                     putString("DIRECTOR", pelicula.director)
-                    putDouble("VALORACION", pelicula.valoracion)
-                    putInt("IMAGEN", pelicula.portada)
+                    putDouble("VALORACION", pelicula.calificacion)
+                    putInt("IMAGEN", idImagen)
                 }
             }
 

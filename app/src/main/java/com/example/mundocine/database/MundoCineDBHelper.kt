@@ -11,6 +11,80 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
         db.execSQL(CREATE_TABLE_PELICULAS)
         db.execSQL(CREATE_TABLE_ACTORES)
         db.execSQL(CREATE_TABLE_PELICULAS_ACTORES)
+
+        insertarDatos(db)
+
+    }
+
+    private fun insertarDatos(db: SQLiteDatabase) {
+
+        // peliculas
+        db.execSQL("""
+            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            VALUES ('El Padrino', 'Francis Ford Coppola', 'Drama', 1972, 9.2,
+            'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
+            'pelicula_el_padrino');
+        """)
+        db.execSQL("""
+            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            VALUES ('El Padrino II', 'Francis Ford Coppola', 'Drama', 1974, 9.0,
+            'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
+            'pelicula_el_padrino_2');
+        """)
+        db.execSQL(""" INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            VALUES ('El Padrino III', 'Francis Ford Coppola', 'Drama', 1990, 7.6,
+            'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
+            'pelicula_el_padrino_3');
+        """)
+        db.execSQL("""
+            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            VALUES ('Scarface', 'Brian De Palma', 'Crimen', 1983, 8.3,
+            'Un emigrante cubano se instala en Miami con el objetivo de convertirse en un gángster.',
+            'pelicula_scarface');
+        """)
+
+        // actores
+        db.execSQL("""
+            INSERT INTO Actores (nombre, edad)
+            VALUES ('Marlon Brando', 80);
+        """)
+        db.execSQL("""
+            INSERT INTO Actores (nombre, edad)
+            VALUES ('Al Pacino', 80);
+        """)
+        db.execSQL("""
+            INSERT INTO Actores (nombre, edad)
+            VALUES ('Robert De Niro', 77);
+        """)
+
+        // peliculas_actores
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (1, 1);
+        """)
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (1, 2);
+        """)
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (2, 1);
+            
+            
+        """)
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (2, 2);
+        """)
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (2, 3);
+        """)
+        db.execSQL("""
+            INSERT INTO PeliculasActores (idPelicula, idActor)
+            VALUES (4, 2);
+        """)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -32,7 +106,9 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
                 director TEXT,
                 genero TEXT,
                 anio INTEGER,
-                calificacion INTEGER
+                calificacion INTEGER,
+                sinopsis TEXT,
+                portada TEXT 
             );
         """
 

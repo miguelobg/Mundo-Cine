@@ -6,5 +6,7 @@ data class Pelicula(
     val director: String,
     val genero: String,
     val anio: Int,
-    val calificacion: Double
+    val calificacion: Double,
+    val sinopsis: String,
+    val portada: String
 )

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mundocine.R
 import com.example.mundocine.adaptadores.AdaptadorPelicula
+import com.example.mundocine.database.DaoPeliculas
 import com.example.mundocine.database.GeneroDAO
 import com.google.android.material.appbar.MaterialToolbar
 
 class MenuPelicula : AppCompatActivity() {
 
     lateinit var rvPelicula : RecyclerView
-    lateinit var daoPelicula : GeneroDAO
+    lateinit var daoPeliculas: DaoPeliculas
+    lateinit var adaptadorPelicula: AdaptadorPelicula
 
 
 
@@ -35,14 +38,20 @@ class MenuPelicula : AppCompatActivity() {
             // Acción del icono de navegación
         }
 
-        val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
-
-        //filtramos por genero
-        val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
+        daoPeliculas = DaoPeliculas(this)
 
         rvPelicula = findViewById(R.id.rvPeliculas)
-        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas, this) //No value passed for parameter 'activity'
-        rvPelicula.layoutManager = LinearLayoutManager(this)
+
+        val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
+        cargarPeliculasPorGenero(generoSeleccionado)
+
+
+
+        //filtramos por genero
+        //val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
+//        rvPelicula = findViewById(R.id.rvPeliculas)
+//        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas, this) //No value passed for parameter 'activity'
+//        rvPelicula.layoutManager = LinearLayoutManager(this)
 
 
 
@@ -51,6 +60,14 @@ class MenuPelicula : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    fun cargarPeliculasPorGenero(genero: String) {
+        val listaPeliculas = daoPeliculas.obtenerPeliculasPorGenero(genero)
+
+        adaptadorPelicula = AdaptadorPelicula(listaPeliculas, this)
+        rvPelicula.layoutManager = LinearLayoutManager(this)
+        rvPelicula.adapter = adaptadorPelicula
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -31,10 +31,10 @@ class GeneroDAO {
 
     }
 
-    init {
-        listaPeliculas.add(Pelicula("El Padrino", R.drawable.jack_sparrow, "Acción", "2h 55min", 9.2, "El Padrino es una película estadounidense de 1972 dirigida por Francis Ford Coppola. El filme fue producido por Albert S. Ruddy, desde un guion de Mario Puzo y Coppola. Está basada en la novela homónima de Puzo.", "Francis Ford Coppola", 1972))
-        listaPeliculas.add(Pelicula("El Padrino II", R.drawable.jack_sparrow, "Acción", "3h 20min", 9.0, "El Padrino II es una película estadounidense de 1974 dirigida por Francis Ford Coppola. Es la secuela de El Padrino (1972) y la segunda entrega de la trilogía de El Padrino. La película es una secuela y precuela simultánea de la primera parte, presentando dos historias paralelas.", "Francis Ford Coppola", 1974))
-    }
+//    init {
+//        listaPeliculas.add(Pelicula("El Padrino", R.drawable.jack_sparrow, "Acción", "2h 55min", 9.2, "El Padrino es una película estadounidense de 1972 dirigida por Francis Ford Coppola. El filme fue producido por Albert S. Ruddy, desde un guion de Mario Puzo y Coppola. Está basada en la novela homónima de Puzo.", "Francis Ford Coppola", 1972))
+//        listaPeliculas.add(Pelicula("El Padrino II", R.drawable.jack_sparrow, "Acción", "3h 20min", 9.0, "El Padrino II es una película estadounidense de 1974 dirigida por Francis Ford Coppola. Es la secuela de El Padrino (1972) y la segunda entrega de la trilogía de El Padrino. La película es una secuela y precuela simultánea de la primera parte, presentando dos historias paralelas.", "Francis Ford Coppola", 1974))
+//    }
 
 
 
