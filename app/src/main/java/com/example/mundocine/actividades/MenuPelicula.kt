@@ -3,11 +3,13 @@ package com.example.mundocine.actividades
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mundocine.R
@@ -39,7 +41,7 @@ class MenuPelicula : AppCompatActivity() {
         val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
 
         rvPelicula = findViewById(R.id.rvPeliculas)
-        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas)
+        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas, this) //No value passed for parameter 'activity'
         rvPelicula.layoutManager = LinearLayoutManager(this)
 
 
@@ -71,6 +73,17 @@ class MenuPelicula : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+            findViewById<RecyclerView>(R.id.rvPeliculas).visibility = View.VISIBLE
+            findViewById<FragmentContainerView>(R.id.fragment_container).visibility = View.GONE
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 
 
 }
