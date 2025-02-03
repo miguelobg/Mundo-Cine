@@ -78,7 +78,7 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
         """)
         db.execSQL("""
             INSERT INTO PeliculasActores (idPelicula, idActor)
-            VALUES (2, 3);
+            VALUES (3, 3);
         """)
         db.execSQL("""
             INSERT INTO PeliculasActores (idPelicula, idActor)

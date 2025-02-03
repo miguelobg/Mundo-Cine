@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.mundocine.R
+import com.example.mundocine.database.DaoPeliculas
 
 
 class DetallePeliculaFragment : Fragment() {
@@ -19,6 +21,10 @@ class DetallePeliculaFragment : Fragment() {
     private lateinit var txtSinopsis: TextView
     private lateinit var txtDirector: TextView
     private lateinit var txtValoracion: TextView
+    private lateinit var btnActores: Button
+
+    private lateinit var daoPeliculas: DaoPeliculas
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +42,9 @@ class DetallePeliculaFragment : Fragment() {
         txtSinopsis = view.findViewById(R.id.txtSinopsis)
         txtDirector = view.findViewById(R.id.txtDirector)
         txtValoracion = view.findViewById(R.id.txtValoracion)
+        btnActores = view.findViewById(R.id.btnActores)
+
+        daoPeliculas = DaoPeliculas(requireContext())
 
         arguments?.let {
             txtTitulo.text = it.getString("TITULO")
@@ -44,6 +53,14 @@ class DetallePeliculaFragment : Fragment() {
             txtDirector.text = it.getString("DIRECTOR")
             txtValoracion.text = "Valoración: ${it.getDouble("VALORACION")}/10"
             imgPoster.setImageResource(it.getInt("IMAGEN"))
+
+            val idPelicula = it.getInt("ID_PELICULA")
+
+            btnActores.setOnClickListener {
+                val actores = daoPeliculas.obtenerActoresPorPelicula(idPelicula)
+                ActoresDialogFragment(actores).show(parentFragmentManager, "actoresDialog")
+            }
+
         }
     }
 }

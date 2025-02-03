@@ -51,6 +51,7 @@ class AdaptadorPelicula(private val listaPeliculas: List<Pelicula>,
         holder.itemView.setOnClickListener {
             val fragment = DetallePeliculaFragment().apply {
                 arguments = Bundle().apply {
+                    putInt("ID_PELICULA", pelicula.id)
                     putString("TITULO", pelicula.titulo)
                     putString("GENERO", pelicula.genero)
                     putString("SINOPSIS", pelicula.sinopsis)

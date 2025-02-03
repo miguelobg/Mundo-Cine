@@ -73,6 +73,27 @@ class DaoPeliculas(context: Context) {
 
     }
 
+    fun obtenerActoresPorPelicula(idPelicula: Int): List<String> {
+        val db = dbHelper.readableDatabase
+        val actores = mutableListOf<String>()
+
+        val cursor: Cursor = db.rawQuery("""
+        SELECT Actores.nombre 
+        FROM Actores
+        INNER JOIN PeliculasActores ON Actores.id = PeliculasActores.idActor
+        WHERE PeliculasActores.idPelicula = ?
+    """, arrayOf(idPelicula.toString()))
+
+        if (cursor.moveToFirst()) {
+            do {
+                actores.add(cursor.getString(cursor.getColumnIndexOrThrow("nombre")))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return actores
+    }
+
+
 
 
 }
