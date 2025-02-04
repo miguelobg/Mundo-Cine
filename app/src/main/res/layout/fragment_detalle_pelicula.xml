@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:padding="16dp">
 
     <ImageView
@@ -59,6 +61,7 @@
         android:id="@+id/btnActores"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Ver Actores" />
 
     <Button
@@ -74,4 +77,12 @@
         android:layout_height="wrap_content"
         android:text="Añadir a Favoritos"
         android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Borrar" />
+
 </LinearLayout>

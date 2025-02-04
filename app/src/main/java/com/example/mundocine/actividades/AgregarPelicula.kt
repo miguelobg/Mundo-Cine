@@ -12,7 +12,7 @@ import com.example.mundocine.modelos.Pelicula
 class AgregarPelicula : AppCompatActivity() {
 
     private lateinit var daoPeliculas: DaoPeliculas
-    private var portadaSeleccionada = "pelicula_1" // Valor por defecto
+    private var portadaSeleccionada = "pelicula_poster_por_defecto"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +39,10 @@ class AgregarPelicula : AppCompatActivity() {
 
         // Mapeo de RadioButton con nombres de imágenes
         val portadas = mapOf(
-            R.id.rbPortada1 to "pelicula_1",
-            R.id.rbPortada2 to "pelicula_2",
-            R.id.rbPortada3 to "pelicula_3",
-            R.id.rbPortada4 to "pelicula_4"
+            R.id.rbPortada1 to "pelicula_poster_por_defecto",
+            R.id.rbPortada2 to "pelicula_poster_por_defecto2",
+            R.id.rbPortada3 to "pelicula_poster_por_defecto3",
+            R.id.rbPortada4 to "pelicula_poster_por_defecto4"
         )
 
         // Mapeo de RadioButton con IDs de imágenes en drawable
@@ -68,7 +68,15 @@ class AgregarPelicula : AppCompatActivity() {
             val sinopsis = etSinopsis.text.toString()
             val genero = spinnerGenero.selectedItem.toString()
 
-            if (titulo.isNotEmpty() && director.isNotEmpty() && anio > 0 && calificacion > 0) {
+            if (titulo.isEmpty()) {
+                Toast.makeText(this, "El título no puede estar vacío", Toast.LENGTH_SHORT).show()
+            } else if (director.isEmpty()) {
+                Toast.makeText(this, "El director no puede estar vacío", Toast.LENGTH_SHORT).show()
+            } else if (anio <= 0) {
+                Toast.makeText(this, "El año debe ser mayor que 0", Toast.LENGTH_SHORT).show()
+            } else if (calificacion < 0 || calificacion > 10) {
+                Toast.makeText(this, "La calificación debe estar entre 0 y 10", Toast.LENGTH_SHORT).show()
+            } else {
                 val nuevaPelicula = Pelicula(
                     titulo = titulo,
                     director = director,
@@ -84,14 +92,12 @@ class AgregarPelicula : AppCompatActivity() {
                 val intent = Intent()
                 setResult(Activity.RESULT_OK, intent)
                 finish()
-            } else {
-                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Botón Cancelar
+
         btnCancelar.setOnClickListener {
-            finish() // Cerrar la actividad sin guardar
+            finish()
         }
     }
 }

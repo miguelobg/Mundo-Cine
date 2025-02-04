@@ -45,7 +45,13 @@ class MenuPelicula : AppCompatActivity() {
         val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
         cargarPeliculasPorGenero(generoSeleccionado)
 
-
+        // Actualizar el rvPeliculas cuando se borra una película
+        supportFragmentManager.setFragmentResultListener("eliminar_pelicula", this) { _, bundle ->
+            val actualizar = bundle.getBoolean("actualizar", false)
+            if (actualizar) {
+                cargarPeliculasPorGenero(generoSeleccionado)
+            }
+        }
 
         //filtramos por genero
         //val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
@@ -100,6 +106,8 @@ class MenuPelicula : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+
 
 
 

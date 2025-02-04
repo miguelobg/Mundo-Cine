@@ -93,6 +93,11 @@ class DaoPeliculas(context: Context) {
         return actores
     }
 
+    fun borrarPelicula(idPelicula: Int): Int {
+        val db = dbHelper.writableDatabase
+        return db.delete("Peliculas", "id = ?", arrayOf(idPelicula.toString()))
+    }
+
 
 
 

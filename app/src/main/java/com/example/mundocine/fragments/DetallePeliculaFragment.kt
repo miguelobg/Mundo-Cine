@@ -1,6 +1,7 @@
 
 package com.example.mundocine.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.example.mundocine.R
 import com.example.mundocine.database.DaoPeliculas
+import com.example.mundocine.modelos.Pelicula
 
 
 class DetallePeliculaFragment : Fragment() {
@@ -22,6 +26,7 @@ class DetallePeliculaFragment : Fragment() {
     private lateinit var txtDirector: TextView
     private lateinit var txtValoracion: TextView
     private lateinit var btnActores: Button
+    private lateinit var btnBorrar: Button
 
     private lateinit var daoPeliculas: DaoPeliculas
 
@@ -43,6 +48,7 @@ class DetallePeliculaFragment : Fragment() {
         txtDirector = view.findViewById(R.id.txtDirector)
         txtValoracion = view.findViewById(R.id.txtValoracion)
         btnActores = view.findViewById(R.id.btnActores)
+        btnBorrar = view.findViewById(R.id.btnBorrar)
 
         daoPeliculas = DaoPeliculas(requireContext())
 
@@ -61,27 +67,30 @@ class DetallePeliculaFragment : Fragment() {
                 ActoresDialogFragment(actores).show(parentFragmentManager, "actoresDialog")
             }
 
+            btnBorrar.setOnClickListener {
+                dialogoConfirmacion(idPelicula)
+            }
         }
     }
+
+    private fun dialogoConfirmacion(idPelicula: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirmar Borrado")
+            .setMessage("¿Estás seguro de que deseas borrar esta película?")
+            .setPositiveButton("Sí") { dialog, _ ->
+                daoPeliculas.borrarPelicula(idPelicula)
+                Toast.makeText(requireContext(), "Película borrada", Toast.LENGTH_SHORT).show()
+
+                // Enviar un resultado indicando que la película ha sido eliminada
+                setFragmentResult("eliminar_pelicula", Bundle().apply {
+                    putBoolean("actualizar", true)
+                })
+
+                dialog.dismiss()
+                requireActivity().onBackPressed() // Volver a la lista de películas
+            }
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
 }
-//        btnActores.setOnClickListener {
-//            val actoresFragment = ActoresFragment()
-//            actoresFragment.show(parentFragmentManager, "actoresDialog")
-//        }
-//
-//        btnBandaSonora.setOnClickListener {
-//            mediaPlayer = MediaPlayer.create(requireContext(), R.raw.banda_sonora)
-//            mediaPlayer?.start()
-//        }
-//
-//        btnFavoritos.setOnClickListener {
-//            viewModel.agregarAFavoritos()
-//        }
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mediaPlayer?.release()
-//        mediaPlayer = null
-//    }
-//}
