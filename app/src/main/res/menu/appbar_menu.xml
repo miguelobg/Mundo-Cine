@@ -5,14 +5,14 @@
     <!-- Icono de búsqueda -->
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/sharp_manage_search_24"
+        android:icon="@drawable/ic_sharp_manage_search_24"
         android:title="Buscar"
         app:showAsAction="ifRoom" />
 
     <!-- Icono de micrófono -->
     <item
         android:id="@+id/action_voice_search"
-        android:icon="@drawable/baseline_mic_24"
+        android:icon="@drawable/ic_baseline_mic_24"
         android:title="Búsqueda por voz"
         app:showAsAction="ifRoom" />
 

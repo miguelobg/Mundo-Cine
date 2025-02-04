@@ -16,6 +16,7 @@ import com.example.mundocine.R
 import com.example.mundocine.adaptadores.AdaptadorGenero
 import com.example.mundocine.database.GeneroDAO
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +37,13 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("GENERO_SELECCIONADO", generoSleccionado)
             startActivity(intent)
         }
+
+        val fabAgregarPelicula = findViewById<FloatingActionButton>(R.id.fabAgregarPelicula)
+        fabAgregarPelicula.setOnClickListener {
+            val intent = Intent(this, AgregarPelicula::class.java)
+            startActivityForResult(intent, 1)
+        }
+
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

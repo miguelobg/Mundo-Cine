@@ -9,5 +9,5 @@
     app:title="Mundo Cine"
     app:titleCentered="true"
     app:titleTextColor="@android:color/white"
-    app:navigationIcon="@drawable/baseline_menu_24"
+    app:navigationIcon="@drawable/ic_baseline_menu_24"
     app:popupTheme="@style/ThemeOverlay.Material3" />

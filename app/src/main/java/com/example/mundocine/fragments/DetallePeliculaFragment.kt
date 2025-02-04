@@ -52,7 +52,7 @@ class DetallePeliculaFragment : Fragment() {
             txtSinopsis.text = it.getString("SINOPSIS")
             txtDirector.text = it.getString("DIRECTOR")
             txtValoracion.text = "Valoración: ${it.getDouble("VALORACION")}/10"
-            imgPoster.setImageResource(it.getInt("IMAGEN"))
+            imgPoster.setImageResource(it.getInt("IMAGEN")) // no carga poster por defecto
 
             val idPelicula = it.getInt("ID_PELICULA")
 

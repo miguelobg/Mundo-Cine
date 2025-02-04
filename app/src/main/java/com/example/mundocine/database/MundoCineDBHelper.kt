@@ -4,6 +4,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
+
+// CAMBIAR NOMBRES Y HACER IF PARA ACTUALIZAR VERSIONES
 class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE_NOMBRE, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {

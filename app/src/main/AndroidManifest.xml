@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MundoCine"
         tools:targetApi="31">
         <activity
+            android:name=".actividades.AgregarPelicula"
+            android:exported="false" />
+        <activity
             android:name=".actividades.MenuPelicula"
             android:exported="false" />
         <activity
