@@ -17,6 +17,7 @@ import com.example.mundocine.R
 import com.example.mundocine.adaptadores.AdaptadorPelicula
 import com.example.mundocine.database.DaoPeliculas
 import com.example.mundocine.database.GeneroDAO
+import com.example.mundocine.fragments.DetallePeliculaFragment
 import com.google.android.material.appbar.MaterialToolbar
 
 class MenuPelicula : AppCompatActivity() {
@@ -104,6 +105,30 @@ class MenuPelicula : AppCompatActivity() {
             findViewById<FragmentContainerView>(R.id.fragment_container).visibility = View.GONE
         } else {
             super.onBackPressed()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val idPelicula = intent.getIntExtra("ID_PELICULA", -1)
+        if (idPelicula != -1) {
+            val fragment = DetallePeliculaFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("ID_PELICULA", idPelicula)
+                    putString("TITULO", intent.getStringExtra("TITULO"))
+                    putString("GENERO", intent.getStringExtra("GENERO"))
+                    putString("SINOPSIS", intent.getStringExtra("SINOPSIS"))
+                    putString("DIRECTOR", intent.getStringExtra("DIRECTOR"))
+                    putDouble("VALORACION", intent.getDoubleExtra("VALORACION", 0.0))
+                    putInt("IMAGEN", intent.getIntExtra("IMAGEN", R.drawable.pelicula_poster_por_defecto))
+                }
+            }
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit()
+        } else {
+            val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
+            cargarPeliculasPorGenero(generoSeleccionado)
         }
     }
 

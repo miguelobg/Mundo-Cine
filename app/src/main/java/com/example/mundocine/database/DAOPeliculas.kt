@@ -98,6 +98,20 @@ class DaoPeliculas(context: Context) {
         return db.delete("Peliculas", "id = ?", arrayOf(idPelicula.toString()))
     }
 
+    fun actualizarPelicula(pelicula: Pelicula): Int {
+        val db = dbHelper.writableDatabase
+        val valores = ContentValues().apply {
+            put("titulo", pelicula.titulo)
+            put("director", pelicula.director)
+            put("genero", pelicula.genero)
+            put("anio", pelicula.anio)
+            put("calificacion", pelicula.calificacion)
+            put("sinopsis", pelicula.sinopsis)
+            put("portada", pelicula.portada)
+        }
+        return db.update("Peliculas", valores, "id = ?", arrayOf(pelicula.id.toString()))
+    }
+
 
 
 

@@ -2,6 +2,7 @@
 package com.example.mundocine.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import com.example.mundocine.R
+import com.example.mundocine.actividades.EditarPelicula
 import com.example.mundocine.database.DaoPeliculas
 import com.example.mundocine.modelos.Pelicula
 
@@ -27,8 +29,10 @@ class DetallePeliculaFragment : Fragment() {
     private lateinit var txtValoracion: TextView
     private lateinit var btnActores: Button
     private lateinit var btnBorrar: Button
+    private lateinit var btnEditar: Button
 
     private lateinit var daoPeliculas: DaoPeliculas
+
 
 
     override fun onCreateView(
@@ -49,8 +53,18 @@ class DetallePeliculaFragment : Fragment() {
         txtValoracion = view.findViewById(R.id.txtValoracion)
         btnActores = view.findViewById(R.id.btnActores)
         btnBorrar = view.findViewById(R.id.btnBorrar)
+        btnEditar = view.findViewById(R.id.btnEditar)
 
         daoPeliculas = DaoPeliculas(requireContext())
+
+        // Declaramos variables para que sean accesibles en el onClickListener
+        var idPelicula = -1
+        var titulo = ""
+        var genero = ""
+        var sinopsis = ""
+        var director = ""
+        var valoracion = 0
+        var imagen = 0
 
         arguments?.let {
             txtTitulo.text = it.getString("TITULO")
@@ -69,6 +83,20 @@ class DetallePeliculaFragment : Fragment() {
 
             btnBorrar.setOnClickListener {
                 dialogoConfirmacion(idPelicula)
+            }
+
+            btnEditar.setOnClickListener {
+                val intent = Intent(requireContext(), EditarPelicula::class.java).apply {
+                    putExtra("ID_PELICULA", idPelicula)
+                    putExtra("TITULO", titulo)
+                    putExtra("GENERO", genero)
+                    putExtra("SINOPSIS", sinopsis)
+                    putExtra("DIRECTOR", director)
+                    putExtra("VALORACION", valoracion)
+                    putExtra("IMAGEN", imagen)
+                }
+                startActivity(intent)
+
             }
         }
     }
