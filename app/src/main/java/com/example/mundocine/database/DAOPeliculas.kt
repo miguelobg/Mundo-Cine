@@ -98,6 +98,44 @@ class DaoPeliculas(context: Context) {
         return db.delete("Peliculas", "id = ?", arrayOf(idPelicula.toString()))
     }
 
+    fun actualizarPelicula(pelicula: Pelicula): Int {
+        val db = dbHelper.writableDatabase
+        val valores = ContentValues().apply {
+            put("titulo", pelicula.titulo)
+            put("director", pelicula.director)
+            put("genero", pelicula.genero)
+            put("año", pelicula.año)
+            put("calificacion", pelicula.calificacion)
+            put("sinopsis", pelicula.sinopsis)
+            put("portada", pelicula.portada)
+        }
+        return db.update("Peliculas", valores, "id = ?", arrayOf(pelicula.id.toString()))
+    }
+
+    fun obtenerPeliculaPorId(idPelicula: Int): Pelicula? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM Peliculas WHERE id = ?", arrayOf(idPelicula.toString()))
+
+        var pelicula: Pelicula? = null
+
+        if (cursor.moveToFirst()) {
+            pelicula = Pelicula(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
+                director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
+                genero = cursor.getString(cursor.getColumnIndexOrThrow("genero")),
+                año = cursor.getInt(cursor.getColumnIndexOrThrow("año")),
+                calificacion = cursor.getDouble(cursor.getColumnIndexOrThrow("calificacion")),
+                sinopsis = cursor.getString(cursor.getColumnIndexOrThrow("sinopsis")),
+                portada = cursor.getString(cursor.getColumnIndexOrThrow("portada"))
+            )
+        }
+        cursor.close()
+        return pelicula
+    }
+
+
+
 
 
 

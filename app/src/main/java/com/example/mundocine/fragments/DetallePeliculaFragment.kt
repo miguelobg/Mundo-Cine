@@ -27,8 +27,9 @@ class DetallePeliculaFragment : Fragment() {
     private lateinit var txtValoracion: TextView
     private lateinit var btnActores: Button
     private lateinit var btnBorrar: Button
-
     private lateinit var daoPeliculas: DaoPeliculas
+    private lateinit var btnEditar: Button
+    private var pelicula: Pelicula? = null
 
 
     override fun onCreateView(
@@ -49,18 +50,30 @@ class DetallePeliculaFragment : Fragment() {
         txtValoracion = view.findViewById(R.id.txtValoracion)
         btnActores = view.findViewById(R.id.btnActores)
         btnBorrar = view.findViewById(R.id.btnBorrar)
+        btnEditar = view.findViewById(R.id.btnEditar)
 
         daoPeliculas = DaoPeliculas(requireContext())
 
-        arguments?.let {
-            txtTitulo.text = it.getString("TITULO")
-            txtGenero.text = it.getString("GENERO")
-            txtSinopsis.text = it.getString("SINOPSIS")
-            txtDirector.text = it.getString("DIRECTOR")
-            txtValoracion.text = "Valoración: ${it.getDouble("VALORACION")}/10"
-            imgPoster.setImageResource(it.getInt("IMAGEN")) // no carga poster por defecto
 
+        // Obtener datos cuando se selecciona una película
+        arguments?.let {
             val idPelicula = it.getInt("ID_PELICULA")
+            val titulo = it.getString("TITULO") ?: ""
+            val genero = it.getString("GENERO") ?: ""
+            val sinopsis = it.getString("SINOPSIS") ?: ""
+            val director = it.getString("DIRECTOR") ?: ""
+            val calificacion = it.getDouble("VALORACION", 0.0)
+            val año = it.getInt("AÑO", 2000) // Valor por defecto si no se proporciona
+            val portada = it.getInt("IMAGEN")
+
+            pelicula = Pelicula(idPelicula, titulo, director, genero, año, calificacion, sinopsis, "")
+
+            txtTitulo.text = titulo
+            txtGenero.text = genero
+            txtSinopsis.text = sinopsis
+            txtDirector.text = director
+            txtValoracion.text = "Valoración: $calificacion/10"
+            imgPoster.setImageResource(portada) // Asegúrate de manejar correctamente el ID de imagen
 
             btnActores.setOnClickListener {
                 val actores = daoPeliculas.obtenerActoresPorPelicula(idPelicula)
@@ -69,6 +82,14 @@ class DetallePeliculaFragment : Fragment() {
 
             btnBorrar.setOnClickListener {
                 dialogoConfirmacion(idPelicula)
+            }
+
+            btnEditar.setOnClickListener {
+                pelicula?.let { peli ->
+                    EditarPeliculaDialogFragment(peli) {
+                        actualizarVista(peli.id)
+                    }.show(parentFragmentManager, "EditarPelicula")
+                }
             }
         }
     }
@@ -92,5 +113,28 @@ class DetallePeliculaFragment : Fragment() {
             .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+    }
+
+    private fun actualizarVista(idPelicula: Int) {
+        daoPeliculas.obtenerPeliculaPorId(idPelicula)?.let { peliculaActualizada: Pelicula ->
+            txtTitulo.text = peliculaActualizada.titulo
+            txtGenero.text = peliculaActualizada.genero
+            txtSinopsis.text = peliculaActualizada.sinopsis
+            txtDirector.text = peliculaActualizada.director
+            txtValoracion.text = "Valoración: ${peliculaActualizada.calificacion}/10"
+
+            val idImagen = requireContext().resources.getIdentifier(
+                peliculaActualizada.portada, "drawable", requireContext().packageName
+            )
+            if (idImagen != 0) {
+                imgPoster.setImageResource(idImagen)
+            } else {
+                imgPoster.setImageResource(R.drawable.pelicula_poster_por_defecto)
+            }
+
+            setFragmentResult("actualizar_lista", Bundle().apply {
+                putBoolean("actualizar", true)
+            })
+        }
     }
 }

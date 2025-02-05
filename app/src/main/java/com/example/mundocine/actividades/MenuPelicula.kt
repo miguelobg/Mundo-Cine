@@ -24,6 +24,7 @@ class MenuPelicula : AppCompatActivity() {
     lateinit var rvPelicula : RecyclerView
     lateinit var daoPeliculas: DaoPeliculas
     lateinit var adaptadorPelicula: AdaptadorPelicula
+    private var generoSeleccionado: String = ""
 
 
 
@@ -35,17 +36,24 @@ class MenuPelicula : AppCompatActivity() {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
-            // Acción del icono de navegación
+            // si da tiempo, icono de menu
         }
 
         daoPeliculas = DaoPeliculas(this)
 
         rvPelicula = findViewById(R.id.rvPeliculas)
 
-        val generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
+        generoSeleccionado = intent.getStringExtra("GENERO_SELECCIONADO") ?: ""
         cargarPeliculasPorGenero(generoSeleccionado)
 
-        // Actualizar el rvPeliculas cuando se borra una película
+        // Escuchar eventos de actualización tras edición o eliminación
+        supportFragmentManager.setFragmentResultListener("actualizar_lista", this) { _, bundle ->
+            val actualizar = bundle.getBoolean("actualizar", false)
+            if (actualizar) {
+                cargarPeliculasPorGenero(generoSeleccionado)
+            }
+        }
+
         supportFragmentManager.setFragmentResultListener("eliminar_pelicula", this) { _, bundle ->
             val actualizar = bundle.getBoolean("actualizar", false)
             if (actualizar) {
