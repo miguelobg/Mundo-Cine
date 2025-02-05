@@ -5,7 +5,7 @@ data class Pelicula(
     val titulo: String,
     val director: String,
     val genero: String,
-    val anio: Int,
+    val año: Int,
     val calificacion: Double,
     val sinopsis: String,
     val portada: String

@@ -53,13 +53,6 @@ class MenuPelicula : AppCompatActivity() {
             }
         }
 
-        //filtramos por genero
-        //val peliculasFiltradas = GeneroDAO.listaPeliculas.filter { it.genero == generoSeleccionado }
-//        rvPelicula = findViewById(R.id.rvPeliculas)
-//        rvPelicula.adapter = AdaptadorPelicula(peliculasFiltradas, this) //No value passed for parameter 'activity'
-//        rvPelicula.layoutManager = LinearLayoutManager(this)
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -85,11 +78,12 @@ class MenuPelicula : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_search -> {
                 Toast.makeText(this, "Buscar...", Toast.LENGTH_SHORT).show()
+                // filtrar por nombre - genero?
                 true
             }
             R.id.action_voice_search -> {
                 Toast.makeText(this, "Búsqueda por voz...", Toast.LENGTH_SHORT).show()
-                // Aquí puedes lanzar el reconocimiento de voz con SpeechRecognizer
+                // Mandar a crear pelicula
                 true
             }
 

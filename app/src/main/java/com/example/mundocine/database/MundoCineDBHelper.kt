@@ -22,24 +22,24 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
 
         // peliculas
         db.execSQL("""
-            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            INSERT INTO Peliculas (titulo, director, genero, año, calificacion, sinopsis, portada)
             VALUES ('El Padrino', 'Francis Ford Coppola', 'Drama', 1972, 9.2,
             'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
             'pelicula_el_padrino');
         """)
         db.execSQL("""
-            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            INSERT INTO Peliculas (titulo, director, genero, año, calificacion, sinopsis, portada)
             VALUES ('El Padrino II', 'Francis Ford Coppola', 'Drama', 1974, 9.0,
             'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
             'pelicula_el_padrino_2');
         """)
-        db.execSQL(""" INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+        db.execSQL(""" INSERT INTO Peliculas (titulo, director, genero, año, calificacion, sinopsis, portada)
             VALUES ('El Padrino III', 'Francis Ford Coppola', 'Drama', 1990, 7.6,
             'La familia Corleone es una de las cinco familias que dominan la mafia en Nueva York.',
             'pelicula_el_padrino_3');
         """)
         db.execSQL("""
-            INSERT INTO Peliculas (titulo, director, genero, anio, calificacion, sinopsis, portada)
+            INSERT INTO Peliculas (titulo, director, genero, año, calificacion, sinopsis, portada)
             VALUES ('Scarface', 'Brian De Palma', 'Crimen', 1983, 8.3,
             'Un emigrante cubano se instala en Miami con el objetivo de convertirse en un gángster.',
             'pelicula_scarface');
@@ -107,7 +107,7 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
                 titulo TEXT NOT NULL,
                 director TEXT,
                 genero TEXT,
-                anio INTEGER,
+                año INTEGER,
                 calificacion INTEGER,
                 sinopsis TEXT,
                 portada TEXT 

@@ -20,7 +20,7 @@ class AgregarPelicula : AppCompatActivity() {
 
         val etTitulo = findViewById<EditText>(R.id.etTitulo)
         val etDirector = findViewById<EditText>(R.id.etDirector)
-        val etAnio = findViewById<EditText>(R.id.etAnio)
+        val etaño = findViewById<EditText>(R.id.etaño)
         val etCalificacion = findViewById<EditText>(R.id.etCalificacion)
         val etSinopsis = findViewById<EditText>(R.id.etSinopsis)
         val spinnerGenero = findViewById<Spinner>(R.id.spinnerGenero)
@@ -63,7 +63,7 @@ class AgregarPelicula : AppCompatActivity() {
         btnGuardar.setOnClickListener {
             val titulo = etTitulo.text.toString()
             val director = etDirector.text.toString()
-            val anio = etAnio.text.toString().toIntOrNull() ?: 0
+            val año = etaño.text.toString().toIntOrNull() ?: 0
             val calificacion = etCalificacion.text.toString().toDoubleOrNull() ?: 0.0
             val sinopsis = etSinopsis.text.toString()
             val genero = spinnerGenero.selectedItem.toString()
@@ -72,7 +72,7 @@ class AgregarPelicula : AppCompatActivity() {
                 Toast.makeText(this, "El título no puede estar vacío", Toast.LENGTH_SHORT).show()
             } else if (director.isEmpty()) {
                 Toast.makeText(this, "El director no puede estar vacío", Toast.LENGTH_SHORT).show()
-            } else if (anio <= 0) {
+            } else if (año <= 0) {
                 Toast.makeText(this, "El año debe ser mayor que 0", Toast.LENGTH_SHORT).show()
             } else if (calificacion < 0 || calificacion > 10) {
                 Toast.makeText(this, "La calificación debe estar entre 0 y 10", Toast.LENGTH_SHORT).show()
@@ -81,7 +81,7 @@ class AgregarPelicula : AppCompatActivity() {
                     titulo = titulo,
                     director = director,
                     genero = genero,
-                    anio = anio,
+                    año = año,
                     calificacion = calificacion,
                     sinopsis = sinopsis,
                     portada = portadaSeleccionada

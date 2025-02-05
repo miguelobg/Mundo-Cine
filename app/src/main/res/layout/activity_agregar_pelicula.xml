@@ -29,19 +29,18 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/etAnio"
+            android:id="@+id/etaño"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:hint="Año"
-
+            android:maxLength="4"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/etCalificacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:maxLength="2"
             android:hint="Calificación (1-10)"
             android:inputType="numberDecimal" />
 

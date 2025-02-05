@@ -23,7 +23,7 @@
         android:paddingTop="8dp" />
 
     <TextView
-        android:id="@+id/txtAnio"
+        android:id="@+id/txtaño"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"

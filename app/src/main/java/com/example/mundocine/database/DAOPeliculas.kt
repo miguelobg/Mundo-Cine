@@ -14,7 +14,7 @@ class DaoPeliculas(context: Context) {
             put("titulo", pelicula.titulo)
             put("director", pelicula.director)
             put("genero", pelicula.genero)
-            put("anio", pelicula.anio)
+            put("año", pelicula.año)
             put("calificacion", pelicula.calificacion)
             put("sinopsis", pelicula.sinopsis)
             put("portada", pelicula.portada)
@@ -24,7 +24,7 @@ class DaoPeliculas(context: Context) {
 
     fun obtenerPeliculas(): List<Pelicula> {
         val db = dbHelper.readableDatabase
-        val cursor: Cursor = db.query("Peliculas", null, null, null, null, null, "anio DESC")
+        val cursor: Cursor = db.query("Peliculas", null, null, null, null, null, "año DESC")
         val peliculas = mutableListOf<Pelicula>()
 
         if (cursor.moveToFirst()) {
@@ -34,7 +34,7 @@ class DaoPeliculas(context: Context) {
                     titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
                     director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
                     genero = cursor.getString(cursor.getColumnIndexOrThrow("genero")),
-                    anio = cursor.getInt(cursor.getColumnIndexOrThrow("anio")),
+                    año = cursor.getInt(cursor.getColumnIndexOrThrow("año")),
                     calificacion = cursor.getDouble(cursor.getColumnIndexOrThrow("calificacion")),
                     sinopsis = cursor.getString(cursor.getColumnIndexOrThrow("sinopsis")),
                     portada = cursor.getString(cursor.getColumnIndexOrThrow("portada"))
@@ -59,7 +59,7 @@ class DaoPeliculas(context: Context) {
                     titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
                     director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
                     genero = cursor.getString(cursor.getColumnIndexOrThrow("genero")),
-                    anio = cursor.getInt(cursor.getColumnIndexOrThrow("anio")),
+                    año = cursor.getInt(cursor.getColumnIndexOrThrow("año")),
                     calificacion = cursor.getDouble(cursor.getColumnIndexOrThrow("calificacion")),
                     sinopsis = cursor.getString(cursor.getColumnIndexOrThrow("sinopsis")),
                     portada = cursor.getString(cursor.getColumnIndexOrThrow("portada"))
