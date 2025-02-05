@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
-            // Acción del icono de navegación
+            // agregar drawer, usuario, favoritos top 10?
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_voice_search -> {
                 Toast.makeText(this, "Búsqueda por voz...", Toast.LENGTH_SHORT).show()
-                // Aquí puedes lanzar el reconocimiento de voz con SpeechRecognizer
+                // lanzar agregar y llevar a AgregarPelicula
                 true
             }
 

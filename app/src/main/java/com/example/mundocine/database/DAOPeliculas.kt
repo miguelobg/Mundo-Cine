@@ -22,30 +22,6 @@ class DaoPeliculas(context: Context) {
         return db.insert("Peliculas", null, valores)
     }
 
-    fun obtenerPeliculas(): List<Pelicula> {
-        val db = dbHelper.readableDatabase
-        val cursor: Cursor = db.query("Peliculas", null, null, null, null, null, "año DESC")
-        val peliculas = mutableListOf<Pelicula>()
-
-        if (cursor.moveToFirst()) {
-            do {
-                val pelicula = Pelicula(
-                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                    titulo = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
-                    director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
-                    genero = cursor.getString(cursor.getColumnIndexOrThrow("genero")),
-                    año = cursor.getInt(cursor.getColumnIndexOrThrow("año")),
-                    calificacion = cursor.getDouble(cursor.getColumnIndexOrThrow("calificacion")),
-                    sinopsis = cursor.getString(cursor.getColumnIndexOrThrow("sinopsis")),
-                    portada = cursor.getString(cursor.getColumnIndexOrThrow("portada"))
-                )
-                peliculas.add(pelicula)
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-        return peliculas
-    }
-
     fun obtenerPeliculasPorGenero(genero: String): List<Pelicula> {
         val db = dbHelper.readableDatabase
         val cursor: Cursor =
@@ -112,6 +88,7 @@ class DaoPeliculas(context: Context) {
         return db.update("Peliculas", valores, "id = ?", arrayOf(pelicula.id.toString()))
     }
 
+    // para recuperar la pelicula editada.
     fun obtenerPeliculaPorId(idPelicula: Int): Pelicula? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM Peliculas WHERE id = ?", arrayOf(idPelicula.toString()))

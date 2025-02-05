@@ -32,12 +32,11 @@ class AgregarPelicula : AppCompatActivity() {
 
         daoPeliculas = DaoPeliculas(this)
 
-        // Lista de géneros predefinidos
+        // generos para el spinner de agregar pelicula
         val generos = listOf("Acción", "Aventura", "Drama", "Comedia", "Sci-Fi", "Romance", "Terror", "Animación")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, generos)
         spinnerGenero.adapter = adapter
 
-        // Mapeo de RadioButton con nombres de imágenes
         val portadas = mapOf(
             R.id.rbPortada1 to "pelicula_poster_por_defecto",
             R.id.rbPortada2 to "pelicula_poster_por_defecto2",
@@ -45,7 +44,6 @@ class AgregarPelicula : AppCompatActivity() {
             R.id.rbPortada4 to "pelicula_poster_por_defecto4"
         )
 
-        // Mapeo de RadioButton con IDs de imágenes en drawable
         val imagenesPortada = mapOf(
             R.id.rbPortada1 to R.drawable.pelicula_poster_por_defecto,
             R.id.rbPortada2 to R.drawable.pelicula_poster_por_defecto2,
@@ -53,13 +51,13 @@ class AgregarPelicula : AppCompatActivity() {
             R.id.rbPortada4 to R.drawable.pelicula_poster_por_defecto4
         )
 
-        // Cambiar imagen cuando se seleccione un RadioButton
+       // cambio de portada con el radiobutton
         rgPortadas.setOnCheckedChangeListener { _, checkedId ->
             portadaSeleccionada = portadas[checkedId] ?: "pelicula_1"
             ivPortadaSeleccionada.setImageResource(imagenesPortada[checkedId] ?: R.drawable.pelicula_poster_sin_imagen)
         }
 
-        // Botón Guardar
+
         btnGuardar.setOnClickListener {
             val titulo = etTitulo.text.toString()
             val director = etDirector.text.toString()
@@ -68,6 +66,7 @@ class AgregarPelicula : AppCompatActivity() {
             val sinopsis = etSinopsis.text.toString()
             val genero = spinnerGenero.selectedItem.toString()
 
+    //validaciones para agregar pelicula
             if (titulo.isEmpty()) {
                 Toast.makeText(this, "El título no puede estar vacío", Toast.LENGTH_SHORT).show()
             } else if (director.isEmpty()) {
@@ -94,7 +93,6 @@ class AgregarPelicula : AppCompatActivity() {
                 finish()
             }
         }
-
 
         btnCancelar.setOnClickListener {
             finish()

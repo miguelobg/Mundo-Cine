@@ -63,7 +63,7 @@ class DetallePeliculaFragment : Fragment() {
             val sinopsis = it.getString("SINOPSIS") ?: ""
             val director = it.getString("DIRECTOR") ?: ""
             val calificacion = it.getDouble("VALORACION", 0.0)
-            val año = it.getInt("AÑO", 2000) // Valor por defecto si no se proporciona
+            val año = it.getInt("AÑO", 2000)
             val portada = it.getInt("IMAGEN")
 
             pelicula = Pelicula(idPelicula, titulo, director, genero, año, calificacion, sinopsis, "")
@@ -73,7 +73,7 @@ class DetallePeliculaFragment : Fragment() {
             txtSinopsis.text = sinopsis
             txtDirector.text = director
             txtValoracion.text = "Valoración: $calificacion/10"
-            imgPoster.setImageResource(portada) // Asegúrate de manejar correctamente el ID de imagen
+            imgPoster.setImageResource(portada)
 
             btnActores.setOnClickListener {
                 val actores = daoPeliculas.obtenerActoresPorPelicula(idPelicula)
@@ -102,7 +102,7 @@ class DetallePeliculaFragment : Fragment() {
                 daoPeliculas.borrarPelicula(idPelicula)
                 Toast.makeText(requireContext(), "Película borrada", Toast.LENGTH_SHORT).show()
 
-                // Enviar un resultado indicando que la película ha sido eliminada
+                // enviar resultado de borrado
                 setFragmentResult("eliminar_pelicula", Bundle().apply {
                     putBoolean("actualizar", true)
                 })

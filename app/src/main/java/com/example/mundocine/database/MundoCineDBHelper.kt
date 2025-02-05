@@ -5,11 +5,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 
-// CAMBIAR NOMBRES Y HACER IF PARA ACTUALIZAR VERSIONES
+// ****HACER IF PARA ACTUALIZAR VERSIONES
 class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE_NOMBRE, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        // Crear tablas
         db.execSQL(CREATE_TABLE_PELICULAS)
         db.execSQL(CREATE_TABLE_ACTORES)
         db.execSQL(CREATE_TABLE_PELICULAS_ACTORES)
@@ -90,7 +89,6 @@ class MundoCineDBHelper(contexto: Context) : SQLiteOpenHelper(contexto, DATABASE
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Si hay una nueva versión, eliminar y volver a crear las tablas
         db.execSQL("DROP TABLE IF EXISTS PeliculasActores")
         db.execSQL("DROP TABLE IF EXISTS Peliculas")
         db.execSQL("DROP TABLE IF EXISTS Actores")
