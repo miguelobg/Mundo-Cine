@@ -2,6 +2,7 @@
 package com.example.mundocine.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import com.example.mundocine.R
+import com.example.mundocine.actividades.BandaSonora
 import com.example.mundocine.database.DaoPeliculas
 import com.example.mundocine.modelos.Pelicula
 
@@ -29,7 +31,9 @@ class DetallePeliculaFragment : Fragment() {
     private lateinit var btnBorrar: Button
     private lateinit var daoPeliculas: DaoPeliculas
     private lateinit var btnEditar: Button
+    private lateinit var btnBandaSonora: Button
     private var pelicula: Pelicula? = null
+
 
 
     override fun onCreateView(
@@ -51,6 +55,7 @@ class DetallePeliculaFragment : Fragment() {
         btnActores = view.findViewById(R.id.btnActores)
         btnBorrar = view.findViewById(R.id.btnBorrar)
         btnEditar = view.findViewById(R.id.btnEditar)
+        btnBandaSonora = view.findViewById(R.id.btnBandaSonora)
 
         daoPeliculas = DaoPeliculas(requireContext())
 
@@ -91,6 +96,13 @@ class DetallePeliculaFragment : Fragment() {
                     }.show(parentFragmentManager, "EditarPelicula")
                 }
             }
+
+            btnBandaSonora.setOnClickListener {
+                val intent = Intent(requireContext(), BandaSonora::class.java)
+                startActivity(intent)
+            }
+
+
         }
     }
 
